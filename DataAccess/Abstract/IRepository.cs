@@ -8,6 +8,7 @@ namespace DataAccess.Abstract
 {
     public interface IRepository<TEntity> where TEntity : class
     {
+        //IGenericDal
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);
         Task AddAsync(TEntity entity);
