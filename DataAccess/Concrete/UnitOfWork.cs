@@ -11,12 +11,13 @@ namespace DataAccess.Concrete
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly Context _context;
+        //private readonly Context _context;
+        Context _context = new Context();
         private IDbContextTransaction _transaction;
 
-        public UnitOfWork(Context context)
+        public UnitOfWork()
         {
-            _context = context;
+            //_context = context;
         }
 
         public async Task BeginTransactionAsync()
