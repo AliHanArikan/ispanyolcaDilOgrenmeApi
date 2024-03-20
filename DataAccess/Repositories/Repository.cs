@@ -14,11 +14,13 @@ namespace DataAccess.Repositories
        //private readonly Context _context;
        Context context = new Context();
         private readonly DbSet<TEntity> _dbSet;
+        
 
         public Repository()
         {
-           //_context = context;
+            //_context = context;
             _dbSet = context.Set<TEntity>();
+            
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -45,8 +47,11 @@ namespace DataAccess.Repositories
 
         public async Task DeleteAsync(TEntity entity)
         {
-            _dbSet.Remove(entity);
-            await context.SaveChangesAsync();
+           
+                _dbSet.Remove(entity);
+                await context.SaveChangesAsync();
+               
+            
         }
     }
 }

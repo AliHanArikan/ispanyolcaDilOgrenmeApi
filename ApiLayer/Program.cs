@@ -17,7 +17,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISpanishTopicService,SpanishTopicManager>();
 builder.Services.AddScoped<ISpanishTopicDal,EfSpanishTopicDal>();
 
+builder.Services.AddScoped<ISpanishSubTopicService,SpanishSubTopicManager>();
+builder.Services.AddScoped<ISpanishSubTopicDal,EfSpanishSubTopicDal>();
+
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+builder.Services.AddAutoMapper(typeof(Program));
+
 
 
 var app = builder.Build();

@@ -19,13 +19,20 @@ namespace DataAccess.Concrete
         public DbSet<SpanishTopic> SpanishTopics { get; set; }
         public DbSet<SpanishSubTopic> SpanishSubTopics { get; set; }
 
+        public DbSet<SpanishLecture> SpanishLectures { get; set; }
 
+         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SpanishSubTopic>()
                 .HasOne(sst => sst.SpanishTopic)
                 .WithMany(st => st.SpanishSubTopics)
                 .HasForeignKey(sst => sst.SpanishTopicId);
+
+            modelBuilder.Entity<SpanishLecture>()
+                .HasOne(sl => sl.SpanishSubTopic)
+                .WithOne()
+                .HasForeignKey<SpanishLecture>(sl => sl.SpanishSubTopicId);
 
 
         }

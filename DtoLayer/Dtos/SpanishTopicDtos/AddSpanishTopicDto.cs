@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityLayer
+namespace DtoLayer.Dtos.SpanishTopicDtos
 {
-    public class SpanishTopic
+    public class AddSpanishTopicDto
     {
         public int SpanishTopicId { get; set; }
 
@@ -16,7 +16,5 @@ namespace EntityLayer
         public int LessonLevel { get; set; }
 
         public bool IsActive { get; set; }
-
-        public ICollection<SpanishSubTopic>? SpanishSubTopics { get; set; }
     }
 }
