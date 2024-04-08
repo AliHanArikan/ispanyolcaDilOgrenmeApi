@@ -1,6 +1,11 @@
-﻿using BusinessLayer.Abstract;
+﻿using AutoMapper;
+using BusinessLayer.Abstract;
+using BusinessLayer.FluentValidation.SpanishSubTopic;
+using DtoLayer.Dtos.SpanishSubTopicDtos;
+using DtoLayer.Dtos.SpanishTopicDtos;
 using EntityLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Validations;
 
 namespace ApiLayer.Controllers
 {
@@ -9,10 +14,14 @@ namespace ApiLayer.Controllers
     public class SpanishSubTopicController : Controller
     {
         private readonly ISpanishSubTopicService _spanishSubTopicService;
+        private readonly IMapper _mapper;
 
-        public SpanishSubTopicController(ISpanishSubTopicService spanishSubTopicService)
+
+
+        public SpanishSubTopicController(ISpanishSubTopicService spanishSubTopicService, IMapper mapper)
         {
             _spanishSubTopicService = spanishSubTopicService;
+            _mapper = mapper;
         }
 
 
@@ -24,10 +33,103 @@ namespace ApiLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAsyncSpanishSubTopic(SpanishSubTopic spanishSubTopic)
+        public async Task<IActionResult> AddAsyncSpanishSubTopic(AddSpanishSubTopicDto addSpanishSubTopicDto)
         {
-            await _spanishSubTopicService.TAddAsync(spanishSubTopic);
-            return Ok();
+            try
+            {
+                var validator = new AddSpanishSubTopicValidator();
+                var validationResult = validator.Validate(addSpanishSubTopicDto);
+
+                if (!validationResult.IsValid)
+                {
+                    var errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
+                    return BadRequest(errors);
+                }
+
+                var spanishSubTopic = _mapper.Map<SpanishSubTopic>(addSpanishSubTopicDto);
+                await _spanishSubTopicService.TAddAsync(spanishSubTopic);
+                return Ok("Spanish topic successfully added.");
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
+
+
+        [HttpDelete("id")]
+        public async Task<IActionResult> DeleteSpanishSubTopic(int id)
+        {
+            var value = await _spanishSubTopicService.TGetByIdAsync(id);
+            await _spanishSubTopicService.TDeleteAsync(value);
+            return Ok("Basarıyla silindi");
+        }
+
+        [HttpPut("id")]
+        public async Task<IActionResult> UpdateSpanishSubTopic(int id,UpdateSpanishSubTopicDto updateSpanishSubTopicDto)
+        {
+            try
+            {
+                var spanishSubTopic = await _spanishSubTopicService.TGetByIdAsync(id);
+
+                if (spanishSubTopic == null)
+                {
+                    return NotFound();
+                }
+
+                //spanishSubTopic = _mapper.Map<SpanishSubTopic>(updateSpanishSubTopicDto);
+
+                spanishSubTopic.SpanishSubTopicId = updateSpanishSubTopicDto.SpanishSubTopicId;
+                spanishSubTopic.SpanishTopicId = updateSpanishSubTopicDto.SpanishTopicId;
+                spanishSubTopic.TopicName = updateSpanishSubTopicDto.TopicName;
+                spanishSubTopic.SubTopicPhoto = updateSpanishSubTopicDto.SubTopicPhoto;
+                spanishSubTopic.SubTopicDescription = updateSpanishSubTopicDto?.SubTopicDescription;
+                spanishSubTopic.SubTopicDescription2 = updateSpanishSubTopicDto?.SubTopicDescription2;
+                
+
+                await _spanishSubTopicService.TUpdateAsync(spanishSubTopic);
+                return Ok("Başarılı");
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetByIdSpanishSubTopic(int id)
+        {
+            var spanishSubTopic=await _spanishSubTopicService.TGetByIdAsync(id);
+
+            if (spanishSubTopic == null) {  return NotFound(); }
+
+           
+           // var spanishSubTopicDto = _mapper.Map<SpanishSubTopicDto>(spanishSubTopic);
+
+            return Ok(spanishSubTopic);
+
+
+        }
+
+        [HttpGet("idTopic")]
+         public async Task<IActionResult> GetSubTopicWithTopic(int idTopic)
+        {
+            var values = await _spanishSubTopicService.TGetSpanishSubTopicWithSpanishTopicId(idTopic);
+            if (values == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(values);
+            }
+        }
+
+        //[HttpGet("id")]
+        //public async Task<IActionResult> GetSpanishSubTopicWithTopicId(int id)
+        //{
+        //    var values =await _spanishSubTopicService.TGetSpanishSubTopicWithSpanishTopicId(id);
+        //    return Ok(values);
+        //}
     }
 }

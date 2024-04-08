@@ -83,6 +83,7 @@ namespace ApiLayer.Controllers
             spanishTopic.TopicPhoto = updateSpanishTopicDto?.TopicPhoto;
             spanishTopic.TopicDescription = updateSpanishTopicDto?.TopicDescription;
             spanishTopic.IsActive = updateSpanishTopicDto.IsActive;
+            spanishTopic.LessonLevel = updateSpanishTopicDto.LessonLevel;
             
 
 

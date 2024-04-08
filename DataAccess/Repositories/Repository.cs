@@ -42,7 +42,7 @@ namespace DataAccess.Repositories
         public async Task UpdateAsync(TEntity entity)
         {
             context.Entry(entity).State = EntityState.Modified;
-            await context.SaveChangesAsync();
+           await context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(TEntity entity)

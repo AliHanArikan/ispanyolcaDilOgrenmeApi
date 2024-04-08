@@ -18,8 +18,8 @@ namespace DataAccess.EntityFramework
         {
             using (Context context = new Context())
             {
-               var values = await context.SpanishSubTopics.Where(x => x.SpanishTopicId == id).ToListAsync();
-                return values;
+               return await context.SpanishSubTopics.Where(x => x.SpanishTopicId == id).ToListAsync();
+                
             }
         }
     }

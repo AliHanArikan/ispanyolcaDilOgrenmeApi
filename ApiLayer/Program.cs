@@ -20,6 +20,15 @@ builder.Services.AddScoped<ISpanishTopicDal,EfSpanishTopicDal>();
 builder.Services.AddScoped<ISpanishSubTopicService,SpanishSubTopicManager>();
 builder.Services.AddScoped<ISpanishSubTopicDal,EfSpanishSubTopicDal>();
 
+builder.Services.AddScoped<ISpanishLectureDal,EfSpanishLectureDal>();
+builder.Services.AddScoped<ISpanishLectureService, SpanishLectureManager>();
+
+builder.Services.AddScoped<ISpanishExamDal,EfSpanishExamDal>();
+builder.Services.AddScoped<ISpanishExamService,SpanishExamManager>();
+
+builder.Services.AddScoped<ISpanishShortDescriptionDal, EfSpanishShortDescription>();
+builder.Services.AddScoped<ISpanishShortDescriptionService, SpanishShortDescriptionManager>();
+
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 builder.Services.AddAutoMapper(typeof(Program));

@@ -3,6 +3,7 @@ using DataAccess.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240326114705_spanishExam_adde")]
+    partial class spanishExam_adde
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,32 +107,6 @@ namespace DataAccess.Migrations
                     b.ToTable("SpanishLectures");
                 });
 
-            modelBuilder.Entity("EntityLayer.SpanishShortDescription", b =>
-                {
-                    b.Property<int>("SpanishShortDescriptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpanishShortDescriptionId"), 1L, 1);
-
-                    b.Property<string>("ShortDescriptionPhoto")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortDescriptionText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SpanishLectureId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SpanishShortDescriptionId");
-
-                    b.HasIndex("SpanishLectureId");
-
-                    b.ToTable("SpanishShortDescriptions");
-                });
-
             modelBuilder.Entity("EntityLayer.SpanishSubTopic", b =>
                 {
                     b.Property<int>("SpanishSubTopicId")
@@ -213,17 +189,6 @@ namespace DataAccess.Migrations
                     b.Navigation("SpanishSubTopic");
                 });
 
-            modelBuilder.Entity("EntityLayer.SpanishShortDescription", b =>
-                {
-                    b.HasOne("EntityLayer.SpanishLecture", "SpanishLecture")
-                        .WithMany("SpanishShortDescriptions")
-                        .HasForeignKey("SpanishLectureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SpanishLecture");
-                });
-
             modelBuilder.Entity("EntityLayer.SpanishSubTopic", b =>
                 {
                     b.HasOne("EntityLayer.SpanishTopic", "SpanishTopic")
@@ -238,8 +203,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("EntityLayer.SpanishLecture", b =>
                 {
                     b.Navigation("SpanishExam");
-
-                    b.Navigation("SpanishShortDescriptions");
                 });
 
             modelBuilder.Entity("EntityLayer.SpanishTopic", b =>

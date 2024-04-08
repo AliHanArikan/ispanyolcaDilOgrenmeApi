@@ -3,6 +3,7 @@ using DataAccess.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240326104930_spanishLecture_Changed")]
+    partial class spanishLecture_Changed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,51 +22,6 @@ namespace DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("EntityLayer.SpanishExam", b =>
-                {
-                    b.Property<int>("SpanishExamId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpanishExamId"), 1L, 1);
-
-                    b.Property<string>("CorrectAnswer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OptionA")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OptionB")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OptionC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OptionD")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("QuestionLevel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SpanishExamDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SpanishLectureId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SpanishExamId");
-
-                    b.HasIndex("SpanishLectureId");
-
-                    b.ToTable("SpanishExams");
-                });
 
             modelBuilder.Entity("EntityLayer.SpanishLecture", b =>
                 {
@@ -103,32 +60,6 @@ namespace DataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("SpanishLectures");
-                });
-
-            modelBuilder.Entity("EntityLayer.SpanishShortDescription", b =>
-                {
-                    b.Property<int>("SpanishShortDescriptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpanishShortDescriptionId"), 1L, 1);
-
-                    b.Property<string>("ShortDescriptionPhoto")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortDescriptionText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SpanishLectureId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SpanishShortDescriptionId");
-
-                    b.HasIndex("SpanishLectureId");
-
-                    b.ToTable("SpanishShortDescriptions");
                 });
 
             modelBuilder.Entity("EntityLayer.SpanishSubTopic", b =>
@@ -191,17 +122,6 @@ namespace DataAccess.Migrations
                     b.ToTable("SpanishTopics");
                 });
 
-            modelBuilder.Entity("EntityLayer.SpanishExam", b =>
-                {
-                    b.HasOne("EntityLayer.SpanishLecture", "SpanishLecture")
-                        .WithMany("SpanishExam")
-                        .HasForeignKey("SpanishLectureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SpanishLecture");
-                });
-
             modelBuilder.Entity("EntityLayer.SpanishLecture", b =>
                 {
                     b.HasOne("EntityLayer.SpanishSubTopic", "SpanishSubTopic")
@@ -213,17 +133,6 @@ namespace DataAccess.Migrations
                     b.Navigation("SpanishSubTopic");
                 });
 
-            modelBuilder.Entity("EntityLayer.SpanishShortDescription", b =>
-                {
-                    b.HasOne("EntityLayer.SpanishLecture", "SpanishLecture")
-                        .WithMany("SpanishShortDescriptions")
-                        .HasForeignKey("SpanishLectureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SpanishLecture");
-                });
-
             modelBuilder.Entity("EntityLayer.SpanishSubTopic", b =>
                 {
                     b.HasOne("EntityLayer.SpanishTopic", "SpanishTopic")
@@ -233,13 +142,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("SpanishTopic");
-                });
-
-            modelBuilder.Entity("EntityLayer.SpanishLecture", b =>
-                {
-                    b.Navigation("SpanishExam");
-
-                    b.Navigation("SpanishShortDescriptions");
                 });
 
             modelBuilder.Entity("EntityLayer.SpanishTopic", b =>
