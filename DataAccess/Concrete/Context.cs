@@ -13,7 +13,6 @@ namespace DataAccess.Concrete
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseSqlServer("");
         }
 
         public DbSet<SpanishTopic> SpanishTopics { get; set; }

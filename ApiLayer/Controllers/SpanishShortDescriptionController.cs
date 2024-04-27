@@ -17,5 +17,14 @@ namespace ApiLayer.Controllers
             _spanishShortDescriptionService = spanishShortDescriptionService;
             _mapper = mapper;
         }
+
+        [HttpGet]
+       // [SwaggerOperation(Summary = "Get Short Description With Topic ID", Description = "Retrieves short description with the specified topic ID.")]
+
+        public async Task<IActionResult> GetShortDescriptionWithTopicId(int id)
+        {
+            var values= await _spanishShortDescriptionService.TGetSpanishShortDescriptionWitTopicId(id);
+            return Ok(values);
+        }
     }
 }

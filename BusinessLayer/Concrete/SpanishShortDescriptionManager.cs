@@ -43,6 +43,11 @@ namespace BusinessLayer.Concrete
             return _spanishShortDescriptionDal.GetByIdAsync(id);
         }
 
+        public async Task<IEnumerable<SpanishShortDescription>> TGetSpanishShortDescriptionWitTopicId(int id)
+        {
+            return await _spanishShortDescriptionDal.GetSpanishShortDescriptionWitLectureId(id);
+        }
+
         public async Task TUpdateAsync(SpanishShortDescription entity)
         {
             await _spanishShortDescriptionDal.UpdateAsync(entity);

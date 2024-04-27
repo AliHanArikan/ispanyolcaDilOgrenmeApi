@@ -9,5 +9,6 @@ namespace BusinessLayer.Abstract
 {
     public interface ISpanishShortDescriptionService : IGenericService<SpanishShortDescription>
     {
+        public Task<IEnumerable<SpanishShortDescription>> TGetSpanishShortDescriptionWitTopicId(int id);
     }
 }

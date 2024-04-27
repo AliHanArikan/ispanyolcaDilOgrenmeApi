@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityLayer", "EntityLayer\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiLayer", "ApiLayer\ApiLayer.csproj", "{5C31D0E9-FA6B-4CE8-9A64-F504242D2632}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DtoLayer", "DtoLayer\DtoLayer.csproj", "{54D9127F-90A9-464F-9940-F8A6C15DE7E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DtoLayer", "DtoLayer\DtoLayer.csproj", "{54D9127F-90A9-464F-9940-F8A6C15DE7E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,6 +9,6 @@ namespace DataAccess.Abstract
 {
     public interface ISpanishShortDescriptionDal : IRepository<SpanishShortDescription>
     {
-
+        public Task<IEnumerable<SpanishShortDescription>> GetSpanishShortDescriptionWitLectureId(int id);
     }
 }
