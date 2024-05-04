@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccess.Abstract;
 using EntityLayer;
+using EntityLayer.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,15 @@ namespace BusinessLayer.Concrete
 
         public async Task<SpanishLecture> TGetByIdAsync(int id)
         {
-            return await _spanishLectureDal.GetByIdAsync(id);
+            var value= await _spanishLectureDal.GetByIdAsync(id);
+            if(value is null)
+            {
+                throw new SpanisLectureNotFound(id);
+             }
+            else
+            {
+                return value;
+            }
            
         }
 

@@ -12,7 +12,6 @@ namespace DataAccess.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         }
 
         public DbSet<SpanishTopic> SpanishTopics { get; set; }
