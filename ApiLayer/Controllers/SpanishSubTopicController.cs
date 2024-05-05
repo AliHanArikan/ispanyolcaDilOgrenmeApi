@@ -4,8 +4,10 @@ using BusinessLayer.FluentValidation.SpanishSubTopic;
 using DtoLayer.Dtos.SpanishSubTopicDtos;
 using DtoLayer.Dtos.SpanishTopicDtos;
 using EntityLayer;
+using EntityLayer.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Validations;
+using System.Text.Json;
 
 namespace ApiLayer.Controllers
 {
@@ -29,6 +31,14 @@ namespace ApiLayer.Controllers
         public async Task<IActionResult> GetAllAsync()
         { 
             var values = await  _spanishSubTopicService.TGetAllAsync();
+            return Ok(values);
+        }
+
+        [HttpGet("spanishSubTopicParameters")]
+        public async Task<IActionResult> GetAllAsyncWithPAgination([FromQuery]SpanishSubTopicParameters spanishSubTopicParameters)
+        {
+            var values = await _spanishSubTopicService.TGetAllWithPagination(spanishSubTopicParameters);
+            //Response.Headers.Add("X-Pagination",JsonSerializer.Serialize(values.MetaData);
             return Ok(values);
         }
 

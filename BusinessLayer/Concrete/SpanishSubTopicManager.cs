@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccess.Abstract;
 using EntityLayer;
+using EntityLayer.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,13 @@ namespace BusinessLayer.Concrete
           return  _spanishSubTopicDal.GetAllAsync();
         }
 
+        public Task<PagedList<SpanishSubTopic>> TGetAllWithPagination(SpanishSubTopicParameters spanishSubTopicParameters)
+        {
+            var spanishSubTopics=  _spanishSubTopicDal.GetAllWithPagination(spanishSubTopicParameters);
+            return spanishSubTopics;
+        
+        }
+
         public async Task<SpanishSubTopic> TGetByIdAsync(int id)
         {
             return await _spanishSubTopicDal.GetByIdAsync(id);
@@ -52,5 +60,7 @@ namespace BusinessLayer.Concrete
            _spanishSubTopicDal.UpdateAsync(entity);
             await _unitOfWork.SaveChangesAsync();
         }
+
+      
     }
 }
