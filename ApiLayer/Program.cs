@@ -4,6 +4,7 @@ using BusinessLayer.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.EntityFramework;
+using Microsoft.OpenApi.Models;
 using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 
 //builder.Services.AddScoped<ISpanishTopicService,SpanishTopicManager>();
@@ -38,6 +41,8 @@ builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.ConfigureResponseCaching();
+
 
 
 var app = builder.Build();
@@ -57,6 +62,8 @@ if (app.Environment.IsProduction())
 }
 
 app.UseHttpsRedirection();
+
+app.UseResponseCaching();
 
 app.UseAuthorization();
 

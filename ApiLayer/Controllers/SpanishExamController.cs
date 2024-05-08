@@ -5,6 +5,7 @@ using DtoLayer.Dtos.SpanishExamDtos;
 using EntityLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ApiLayer.Controllers
 {
@@ -21,14 +22,17 @@ namespace ApiLayer.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetAsyncSpanishExam")]
+        [SwaggerOperation(Summary ="Bütün soruları getiren metot")]
+        [ResponseCache(Duration = 60)]//Sunucu üzerinden
         public async Task<IActionResult> GetAsyncSpanishExam()
         {
             var values = await _spanishExamService.TGetAllAsync();
             return Ok(values);
         }
 
-        [HttpPost]
+        [HttpPost("AddAsyncSpanishExam")]
+       //[SwaggerOperation(Summary = "Soru ekleyebileceğiniz metot")]
         public async Task<IActionResult> AddAsyncSpanishExam(AddSpanishExamDto addSpanishExamDto)
         {
             try
@@ -52,7 +56,7 @@ namespace ApiLayer.Controllers
             }
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("DeleteAsyncSpanishExam")]
         
         public async Task<IActionResult> DeleteAsyncSpanishExam(int id) 
         {
@@ -67,7 +71,7 @@ namespace ApiLayer.Controllers
             }
         }
 
-        [HttpPut("id")]
+        [HttpPut("UpdateAsyncSpanishExam")]
         public async Task<IActionResult> UpdateAsyncSpanishExam(int id,UpdateSpanishExamDto updateSpanishExamDto)
         {
             try
@@ -91,14 +95,14 @@ namespace ApiLayer.Controllers
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("GetByIdSpanishExam")]
         public async Task<IActionResult> GetByIdSpanishExam(int id)
         {
             var value = await _spanishExamService.TGetByIdAsync(id);
             return Ok(value);
         }
 
-        [HttpGet("LectureId")]
+        [HttpGet("GetSpanishExamWithLectureId")]
         public async Task<IActionResult> GetSpanishExamWithLectureId(int LectureId)
         {
             var value = await _spanishExamService.TGetSpanishExamWithLectureId(LectureId);

@@ -30,5 +30,10 @@ namespace ApiLayer.Extensions
         {
             services.AddSingleton<ILoggerService,LoggerManager>();  
         }
+
+        public static void ConfigureResponseCaching(this IServiceCollection services)
+        {
+            services.AddResponseCaching();
+        }
     }
 }

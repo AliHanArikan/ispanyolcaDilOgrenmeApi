@@ -21,7 +21,8 @@ namespace DataAccess.EntityFramework
             {
                 var values = await context.SpanishSubTopics.ToListAsync();
                    
-                values = values.OrderBy(b => b.SpanishTopicId)
+                values = values
+                    .OrderBy(b => b.SpanishTopicId)
                     .ToList();
 
                 return PagedList<SpanishSubTopic>

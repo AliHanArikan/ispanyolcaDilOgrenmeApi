@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccess.Abstract;
 using EntityLayer;
+using EntityLayer.Exceptions;
 using EntityLayer.RequestFeatures;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,10 @@ namespace BusinessLayer.Concrete
 
         public Task<PagedList<SpanishSubTopic>> TGetAllWithPagination(SpanishSubTopicParameters spanishSubTopicParameters)
         {
+            if(!spanishSubTopicParameters.ValidLevelRange)
+            {
+                throw new LevelOutofRangeBadRequestException();
+            }
             var spanishSubTopics=  _spanishSubTopicDal.GetAllWithPagination(spanishSubTopicParameters);
             return spanishSubTopics;
         
