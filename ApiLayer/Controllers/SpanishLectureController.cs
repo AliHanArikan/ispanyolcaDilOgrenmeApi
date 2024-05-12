@@ -19,21 +19,21 @@ namespace ApiLayer.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllSpanishLecture")]
         public async Task<IActionResult> GetAllSpanishLecture()
         {
             var values= await _spanishLectureService.TGetAllAsync();
             return Ok(values);
         }
 
-        [HttpGet("id")]
+        [HttpGet("GetByIdSpanishLecture")]
         public async Task<IActionResult> GetByIdSpanishLecture(int id)
         {
             var value = await _spanishLectureService.TGetByIdAsync(id);
             return Ok(value);
         }
 
-        [HttpPost]
+        [HttpPost("AddAsyncSpanishLecture")]
         public async Task<IActionResult> AddAsyncSpanishLecture(AddSpanishLectureDto addSpanishLectureDto)
         {
 
@@ -52,7 +52,7 @@ namespace ApiLayer.Controllers
             return Ok("Added new Lecture");
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("DeleteAsyncSpanishLecture")]
         public async Task<IActionResult> DeleteAsyncSpanishLecture(int id)
         {
             try

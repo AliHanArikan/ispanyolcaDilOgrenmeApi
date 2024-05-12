@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DtoLayer.Dtos.SpanishExamDtos;
 using DtoLayer.Dtos.SpanishLectureDtos;
+using DtoLayer.Dtos.SpanishShortDescriptionDtos;
 using DtoLayer.Dtos.SpanishSubTopicDtos;
 using DtoLayer.Dtos.SpanishTopicDtos;
 using EntityLayer;
@@ -12,9 +13,7 @@ namespace ApiLayer.AutoMapper
     {
         public Mapper()
         {
-            //CreateMap<EntityClass, DTOClass>(); // EntityClass'tan DTOClass'a eşleme
-            //CreateMap<DTOClass, EntityClass>(); // DTOClass'tan EntityClass'a eşleme
-
+           
             //SpanishTopic
             CreateMap<SpanishTopic,AddSpanishTopicDto>();
             CreateMap<AddSpanishTopicDto, SpanishTopic>();
@@ -32,6 +31,11 @@ namespace ApiLayer.AutoMapper
             //SpanishLecture
             CreateMap<SpanishLecture,AddSpanishLectureDto>();
             CreateMap<AddSpanishLectureDto, SpanishLecture>();
+
+            //ShortDescription
+            CreateMap<SpanishShortDescription, AddSpanishShortDescriptionDto>();
+            CreateMap<AddSpanishShortDescriptionDto, SpanishShortDescription>();
+
 
 
             //SpanishExam

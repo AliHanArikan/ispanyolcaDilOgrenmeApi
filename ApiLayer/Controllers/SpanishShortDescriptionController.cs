@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLayer.Abstract;
+using DtoLayer.Dtos.SpanishShortDescriptionDtos;
+using EntityLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,13 +20,29 @@ namespace ApiLayer.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-       // [SwaggerOperation(Summary = "Get Short Description With Topic ID", Description = "Retrieves short description with the specified topic ID.")]
-
+        [HttpGet("GetShortDescriptionWithTopicId")]
         public async Task<IActionResult> GetShortDescriptionWithTopicId(int id)
         {
             var values= await _spanishShortDescriptionService.TGetSpanishShortDescriptionWitTopicId(id);
             return Ok(values);
         }
+
+        [HttpDelete("DeleteShortDescription")]
+        public async Task<IActionResult> DeleteShortDescription(int id)
+        {
+            var values = await _spanishShortDescriptionService.TGetByIdAsync(id);
+            await _spanishShortDescriptionService.TDeleteAsync(values);
+            return Ok(values);
+        }
+
+        public async Task<IActionResult> AddShortDescription(AddSpanishShortDescriptionDto addSpanishShortDescriptionDto)
+        {
+            // var spanishExam = _mapper.Map<SpanishExam>(addSpanishExamDto);
+            var spanishShortDescription = _mapper.Map<SpanishShortDescription>(addSpanishShortDescriptionDto);
+           await _spanishShortDescriptionService.TAddAsync(spanishShortDescription);
+            return Ok("Başarıyla eklendi");
+        }
+
+        
     }
 }

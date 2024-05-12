@@ -4,6 +4,7 @@ using BusinessLayer.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using NLog;
 
@@ -12,7 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(config =>
+{
+    config.CacheProfiles.Add("10mins", new CacheProfile() { Duration = 300});
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

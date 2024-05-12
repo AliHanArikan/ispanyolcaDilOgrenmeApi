@@ -11,6 +11,7 @@ namespace ApiLayer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ResponseCache(CacheProfileName= "10mins")]
 
     public class SpanishExamController : ControllerBase
     {
@@ -23,7 +24,6 @@ namespace ApiLayer.Controllers
         }
 
         [HttpGet("GetAsyncSpanishExam")]
-        [SwaggerOperation(Summary ="Bütün soruları getiren metot")]
         [ResponseCache(Duration = 60)]//Sunucu üzerinden
         public async Task<IActionResult> GetAsyncSpanishExam()
         {
@@ -32,7 +32,6 @@ namespace ApiLayer.Controllers
         }
 
         [HttpPost("AddAsyncSpanishExam")]
-       //[SwaggerOperation(Summary = "Soru ekleyebileceğiniz metot")]
         public async Task<IActionResult> AddAsyncSpanishExam(AddSpanishExamDto addSpanishExamDto)
         {
             try
