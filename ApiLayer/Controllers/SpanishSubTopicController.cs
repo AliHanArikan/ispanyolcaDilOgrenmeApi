@@ -67,7 +67,7 @@ namespace ApiLayer.Controllers
         }
 
 
-        [HttpDelete("id")]
+        [HttpDelete("DeleteSpanishSubTopic")]
         public async Task<IActionResult> DeleteSpanishSubTopic(int id)
         {
             var value = await _spanishSubTopicService.TGetByIdAsync(id);
@@ -75,7 +75,7 @@ namespace ApiLayer.Controllers
             return Ok("Basarıyla silindi");
         }
 
-        [HttpPut("id")]
+        [HttpPut("UpdateSpanishSubTopic")]
         public async Task<IActionResult> UpdateSpanishSubTopic(int id,UpdateSpanishSubTopicDto updateSpanishSubTopicDto)
         {
             try
@@ -106,7 +106,7 @@ namespace ApiLayer.Controllers
         }
 
 
-        [HttpGet("id")]
+        [HttpGet("GetByIdSpanishSubTopic")]
         public async Task<IActionResult> GetByIdSpanishSubTopic(int id)
         {
             var spanishSubTopic=await _spanishSubTopicService.TGetByIdAsync(id);

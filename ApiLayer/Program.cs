@@ -4,10 +4,12 @@ using BusinessLayer.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.EntityFramework;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using NLog;
 
+HangFireManager hangFireManager = new HangFireManager();
 var builder = WebApplication.CreateBuilder(args);
 
 LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
@@ -20,6 +22,13 @@ builder.Services.AddControllers(config =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddHangfire(config =>
+{
+    config.UseSqlServerStorage("");
+});
+builder.Services.AddHangfireServer();
 
 
 
@@ -64,6 +73,12 @@ if (app.Environment.IsProduction())
 {
     app.UseHsts(); 
 }
+
+app.UseHangfireDashboard();
+
+
+RecurringJob.AddOrUpdate("reminder-job",()=> hangFireManager.SpanishLessonReminder(),Cron.Daily);
+
 
 app.UseHttpsRedirection();
 

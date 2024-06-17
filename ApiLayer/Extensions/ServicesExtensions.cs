@@ -24,6 +24,8 @@ namespace ApiLayer.Extensions
             services.AddScoped<ISpanishShortDescriptionDal, EfSpanishShortDescription>();
             services.AddScoped<ISpanishShortDescriptionService, SpanishShortDescriptionManager>();
 
+            //services.AddScoped<IConfiguration, Configuration>();
+
         }
 
         public static void ConfigureLoggerService(this IServiceCollection services)

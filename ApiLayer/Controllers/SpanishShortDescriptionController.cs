@@ -35,6 +35,7 @@ namespace ApiLayer.Controllers
             return Ok(values);
         }
 
+        [HttpPut]
         public async Task<IActionResult> AddShortDescription(AddSpanishShortDescriptionDto addSpanishShortDescriptionDto)
         {
             // var spanishExam = _mapper.Map<SpanishExam>(addSpanishExamDto);
